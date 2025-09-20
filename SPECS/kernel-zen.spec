@@ -6,15 +6,19 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
 
-
-
 #BuildArch:     x86_64
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-%setup -q -n linux-zen-%{version}
+# Create build dir and extract manually using gzip-compatible tar
+mkdir -p %{_builddir}/linux-zen-%{version}
+tar -xzf %{SOURCE0} -C %{_builddir}
+
+# Move into source directory
+cd %{_builddir}/linux-zen-%{version}
+
 # Patch uygulama kaldırıldı
 
 %build
@@ -32,7 +36,6 @@ make INSTALL_MOD_PATH=%{buildroot} install
 %preun
 # Temizleme: kernel kaldırılırken initramfs ve modülleri sil
 if [ $1 -eq 0 ]; then
-    # Package removal
     rm -f /boot/vmlinuz-%{version}*
     rm -f /boot/initramfs-%{version}*.img
     rm -f /boot/System.map-%{version}*
