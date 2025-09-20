@@ -1,13 +1,16 @@
 name: Build and Release Zen Kernel RPM
 
 on:
-  push:
-    tags:
-      - '6.16.8-rpmbuild-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build and release'
+        required: true
+        default: '6.16.8-rpmbuild-v1'
 
 jobs:
   build:
-    runs-on:  ubuntu-22.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
@@ -33,5 +36,5 @@ jobs:
       - name: Create GitHub release and upload RPMs
         uses: ncipollo/release-action@v1
         with:
-          tag: v6.16.8-rpmbuild-v1
+          tag: ${{ github.event.inputs.tag }}
           files: $HOME/rpmbuild/RPMS/*/*.rpm
