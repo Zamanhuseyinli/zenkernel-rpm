@@ -13,9 +13,9 @@ Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance impr
 
 %prep
 mkdir -p %{_builddir}/linux-zen-%{version}
-# -a ile tar formatını otomatik algıla
-tar -xaf %{SOURCE0} -C %{_builddir}/linux-zen-%{version} --strip-components=1
+tar -xzf %{SOURCE0} -C %{_builddir}/linux-zen-%{version} --strip-components=1
 cd %{_builddir}/linux-zen-%{version}
+
 
 
 %build
