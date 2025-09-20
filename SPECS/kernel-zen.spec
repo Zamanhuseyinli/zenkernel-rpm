@@ -2,42 +2,54 @@ Name:           kernel-zen
 Version:        6.16.8
 Release:        1%{?dist}
 Summary:        Zen Linux Kernel - low-latency & performance patches
-Packager:       Zaman Hüseynli <admin@azccriminal.space>
-
 License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
-Patch0:         linux-v%{version}-zen1.patch.zst
-BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel zstd
+
+BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel
 Requires:       dracut
+
+#BuildArch:     x86_64
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-%setup -q -n linux-zen-%{version} -T
-tar -xzf %{SOURCE0} -C .
-
-# Apply zst patch
-zstd -d %{PATCH0} -c | patch -p1
+%setup -q -n linux-zen-%{version}
+# Patch uygulama kaldırıldı
 
 %build
 make olddefconfig
 make -j$(nproc)
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make INSTALL_MOD_PATH=$RPM_BUILD_ROOT modules_install
-make INSTALL_MOD_PATH=$RPM_BUILD_ROOT install
+rm -rf %{buildroot}
+make INSTALL_MOD_PATH=%{buildroot} modules_install
+make INSTALL_MOD_PATH=%{buildroot} install
 
-# Generate initramfs
 %post
-/sbin/dracut --kver %{version} --force
+/sbin/dracut --kver $(uname -r) --force
+
+%preun
+# Temizleme: kernel kaldırılırken initramfs ve modülleri sil
+if [ $1 -eq 0 ]; then
+    # Package removal
+    rm -f /boot/vmlinuz-%{version}*
+    rm -f /boot/initramfs-%{version}*.img
+    rm -f /boot/System.map-%{version}*
+    rm -f /boot/config-%{version}*
+    rm -rf /lib/modules/%{version}*
+fi
 
 %files
-/boot/*
+%defattr(-,root,root)
+/boot/vmlinuz-%{version}*
+/boot/initramfs-%{version}*.img
+/boot/System.map-%{version}*
+/boot/config-%{version}*
 /lib/modules/%{version}*/
 
 %changelog
 * Sat Sep 20 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
-- Initial Zen kernel build with .zst patch
+- Initial Zen kernel build (patch removed for GitHub CI/CD Releases)
+- Cleanup added in %preun
