@@ -39,5 +39,5 @@ make INSTALL_MOD_PATH=$RPM_BUILD_ROOT install
 /lib/modules/%{version}*/
 
 %changelog
-* Sat Sep 21 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
+* Sat Sep 20 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
 - Initial Zen kernel build with .zst patch
