@@ -3,7 +3,7 @@ name: Build and Release Zen Kernel RPM
 on:
   push:
     tags:
-      - 'v6.16.8-rpmbuild-v1'
+      - '6.16.8-rpmbuild-v1'
 
 jobs:
   build:
