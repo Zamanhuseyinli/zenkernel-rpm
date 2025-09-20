@@ -6,8 +6,8 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
 
-BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel
-Requires:       dracut
+BuildRequires: gcc make bc bison flex libelf-dev libssl-dev zlib1g-dev libncurses-dev
+Requires: dracut
 
 #BuildArch:     x86_64
 
