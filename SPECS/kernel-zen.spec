@@ -12,14 +12,11 @@ Source0:        linux-zen-%{version}.tar.gz
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-# Create build dir and extract manually using gzip-compatible tar
 mkdir -p %{_builddir}/linux-zen-%{version}
-tar -xzf %{SOURCE0} -C %{_builddir}
-
-# Move into source directory
+# -a ile tar formatını otomatik algıla
+tar -xaf %{SOURCE0} -C %{_builddir}/linux-zen-%{version} --strip-components=1
 cd %{_builddir}/linux-zen-%{version}
 
-# Patch uygulama kaldırıldı
 
 %build
 make olddefconfig
