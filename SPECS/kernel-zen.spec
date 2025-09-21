@@ -4,17 +4,19 @@ Release:        1%{?dist}
 Summary:        Zen Linux Kernel - low-latency & performance patches
 License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
-Source0:        linux-zen-%{version}.tar.gz
+# Source0 artık raw URL
+Source0:        https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/6.16.8-rpmbuild-v1/linux-zen-6.16.8.tar.gz
+
 
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-# Manuel tar.gz açma, %setup kullanma
-rm -rf %{_builddir}/kernel-zen-%{version}
+# Eğer rpmbuild HTTP Source0 URL’yi otomatik indirmezse manuel indir
 mkdir -p %{_builddir}/kernel-zen-%{version}
-tar -xzf %{SOURCE0} -C %{_builddir}/kernel-zen-%{version} --strip-components=1
+curl -L -o %{_builddir}/kernel-zen-%{version}/linux-zen-%{version}.tar.gz %{SOURCE0}
+tar -xzf %{_builddir}/kernel-zen-%{version}/linux-zen-%{version}.tar.gz -C %{_builddir}/kernel-zen-%{version} --strip-components=1
 
 %build
 cd %{_builddir}/kernel-zen-%{version}
@@ -49,5 +51,5 @@ fi
 
 %changelog
 * Sat Sep 20 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
-- Initial Zen kernel build (patch removed for GitHub CI/CD Releases)
+- Initial Zen kernel build from raw URL
 - Cleanup added in %preun
