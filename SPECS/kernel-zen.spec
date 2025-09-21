@@ -6,23 +6,25 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
 
-
+BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel
+Requires:       dracut
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-# Dizini oluştur ama tar.gz’i açma
-%setup -q -c -T
-
-# tar.gz dosyasını manuel aç
-tar -xzf %{SOURCE0} -C %{_builddir}/%{name} --strip-components=1
+# Manuel tar.gz açma, %setup kullanma
+rm -rf %{_builddir}/kernel-zen-%{version}
+mkdir -p %{_builddir}/kernel-zen-%{version}
+tar -xzf %{SOURCE0} -C %{_builddir}/kernel-zen-%{version} --strip-components=1
 
 %build
+cd %{_builddir}/kernel-zen-%{version}
 make olddefconfig
 make -j$(nproc)
 
 %install
+cd %{_builddir}/kernel-zen-%{version}
 rm -rf %{buildroot}
 make INSTALL_MOD_PATH=%{buildroot} modules_install
 make INSTALL_MOD_PATH=%{buildroot} install
