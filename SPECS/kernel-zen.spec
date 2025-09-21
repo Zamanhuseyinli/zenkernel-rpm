@@ -6,16 +6,12 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:       linux-zen-%{version}.tar.gz
 
-
-
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-# Eğer rpmbuild HTTP Source0 URL’yi otomatik indirmezse manuel indir
-mkdir -p %{_builddir}/kernel-zen-%{version}
-curl -L -o %{_builddir}/kernel-zen-%{version}/linux-zen-%{version}.tar.gz %{SOURCE0}
-tar -xzf %{_builddir}/kernel-zen-%{version}/linux-zen-%{version}.tar.gz -C %{_builddir}/kernel-zen-%{version} --strip-components=1
+# RPM kendi SOURCES dizinindeki dosyayı açar
+%setup -q -n linux-zen-%{version}
 
 %build
 cd %{_builddir}/kernel-zen-%{version}
