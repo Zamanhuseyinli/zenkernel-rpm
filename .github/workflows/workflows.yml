@@ -28,6 +28,9 @@ jobs:
           cp SPECS/kernel-zen.spec $HOME/rpmbuild/SPECS/
           cp SOURCES/linux-zen-*.tar.gz $HOME/rpmbuild/SOURCES/
 
+      - name: Check SOURCES directory
+        run: ls -lh $HOME/rpmbuild/SOURCES/
+
       - name: Build RPM packages
         run: |
           rpmbuild --define "_topdir $HOME/rpmbuild" \
