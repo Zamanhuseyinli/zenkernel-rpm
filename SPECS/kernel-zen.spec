@@ -6,8 +6,6 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
 
-BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel
-Requires:       dracut
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
