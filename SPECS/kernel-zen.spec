@@ -4,22 +4,20 @@ Release:        1%{?dist}
 Summary:        Zen Linux Kernel - low-latency & performance patches
 License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
-Source0:       linux-zen-%{version}.tar.gz
+Source0:        linux-zen-%{version}.tar.gz
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
 # RPM kendi SOURCES dizinindeki dosyayı açar
-%setup -q -n linux-zen-%{version}
+%setup -q
 
 %build
-cd %{_builddir}/linux-zen-%{version}
 make olddefconfig
 make -j$(nproc)
 
 %install
-cd %{_builddir}/linux-zen-%{version}
 rm -rf %{buildroot}
 make INSTALL_MOD_PATH=%{buildroot} modules_install
 make INSTALL_MOD_PATH=%{buildroot} install
@@ -42,7 +40,7 @@ fi
 /boot/initramfs-%{version}*.img
 /boot/System.map-%{version}*
 /boot/config-%{version}*
-/lib/modules/%{version}*/
+/lib/modules/%{version}*
 
 %changelog
 * Sat Sep 20 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
