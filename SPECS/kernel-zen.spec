@@ -4,8 +4,7 @@ Release:        1%{?dist}
 Summary:        Zen Linux Kernel - low-latency & performance patches
 License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
-# Source0 artık raw URL
-Source0:        https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/6.16.8-rpmbuild-v1/linux-zen-6.16.8.tar.gz
+Source0:       linux-zen-%{version}.tar.gz
 
 
 
