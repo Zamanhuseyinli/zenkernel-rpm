@@ -6,17 +6,18 @@ License:        GPL-2.0
 URL:            https://github.com/zen-kernel/zen-kernel
 Source0:        linux-zen-%{version}.tar.gz
 
-#BuildArch:     x86_64
+BuildRequires:  gcc make bc bison flex elfutils-libelf-devel ncurses-devel openssl-devel zlib-devel
+Requires:       dracut
 
 %description
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-mkdir -p %{_builddir}/linux-zen-%{version}
-tar -xzf %{SOURCE0} -C %{_builddir}/linux-zen-%{version} --strip-components=1
-cd %{_builddir}/linux-zen-%{version}
+# Dizini oluştur ama tar.gz’i açma
+%setup -q -c -T
 
-
+# tar.gz dosyasını manuel aç
+tar -xzf %{SOURCE0} -C %{_builddir}/%{name} --strip-components=1
 
 %build
 make olddefconfig
@@ -31,7 +32,6 @@ make INSTALL_MOD_PATH=%{buildroot} install
 /sbin/dracut --kver $(uname -r) --force
 
 %preun
-# Temizleme: kernel kaldırılırken initramfs ve modülleri sil
 if [ $1 -eq 0 ]; then
     rm -f /boot/vmlinuz-%{version}*
     rm -f /boot/initramfs-%{version}*.img
