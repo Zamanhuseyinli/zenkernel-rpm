@@ -24,7 +24,7 @@ jobs:
           libelf-dev libssl-dev zlib1g-dev \
           wget curl git \
           libncurses-dev libudev-dev libpci-dev libiberty-dev autoconf \
-          xz-utils cpio
+          xz-utils cpio perl python3
 
       - name: Prepare rpmbuild directory
         run: |
