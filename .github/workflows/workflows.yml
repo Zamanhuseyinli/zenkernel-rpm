@@ -19,9 +19,12 @@ jobs:
       - name: Set up RPM build environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y rpm build-essential bc bison flex \
-          libelf-dev libssl-dev zlib1g-dev wget libncurses-dev libudev-dev libpci-dev libiberty-dev autoconf
-
+          sudo apt-get install -y \
+          rpm build-essential bc bison flex \
+          libelf-dev libssl-dev zlib1g-dev \
+          wget curl git \
+          libncurses-dev libudev-dev libpci-dev libiberty-dev autoconf \
+          xz-utils cpio
 
       - name: Prepare rpmbuild directory
         run: |
