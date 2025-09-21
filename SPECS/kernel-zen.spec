@@ -10,18 +10,14 @@ Source0:        https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/downloa
 Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance improvements.
 
 %prep
-# Source0'u indir ve aç
-mkdir -p %{_builddir}/linux-zen-%{version}
-curl -L -o %{_builddir}/linux-zen-%{version}/linux-zen-%{version}.tar.gz %{SOURCE0}
-tar -xzf %{_builddir}/linux-zen-%{version}/linux-zen-%{version}.tar.gz -C %{_builddir}/linux-zen-%{version} --strip-components=1
+# SOURCE0 otomatik indirilecek ve açılacak
+%setup -q
 
 %build
-cd %{_builddir}/linux-zen-%{version}
 make olddefconfig
 make -j$(nproc)
 
 %install
-cd %{_builddir}/linux-zen-%{version}
 rm -rf %{buildroot}
 make INSTALL_MOD_PATH=%{buildroot} modules_install
 make INSTALL_MOD_PATH=%{buildroot} install
@@ -48,6 +44,6 @@ fi
 
 %changelog
 * Sat Sep 20 2025 Zaman Hüseynli <admin@azccriminal.space> - 6.16.8-1
-- Kernel source auto-download from GitHub release
-- Full Zen kernel build inside spec
+- Auto-download kernel source from GitHub release
+- Initial Zen kernel build
 - Cleanup added in %preun
