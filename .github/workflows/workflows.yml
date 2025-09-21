@@ -24,8 +24,9 @@ jobs:
 
       - name: Download kernel source
         run: |
-          wget https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/6.16.8-rpmbuild-v1/linux-zen-6.16.8.tar.gz -O $HOME/rpmbuild/SOURCES/linux-zen-6.16.8.tar.gz
-
+         mkdir -p $HOME/rpmbuild/SOURCES
+         wget https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/6.16.8-rpmbuild-v1/linux-zen-6.16.8.tar.gz \
+         -O $HOME/rpmbuild/SOURCES/linux-zen-6.16.8.tar.gz
       - name: Prepare rpmbuild directory
         run: |
           mkdir -p $HOME/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
