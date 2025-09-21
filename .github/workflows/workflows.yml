@@ -20,7 +20,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y rpm build-essential bc bison flex \
-            libelf-dev libssl-dev zlib1g-dev wget
+          libelf-dev libssl-dev zlib1g-dev wget libncurses-dev libudev-dev libpci-dev libiberty-dev autoconf
+
 
       - name: Prepare rpmbuild directory
         run: |
