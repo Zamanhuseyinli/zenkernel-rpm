@@ -20,16 +20,17 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y rpm build-essential bc bison flex \
-            libelf-dev libssl-dev zlib1g-dev gzip
+            libelf-dev libssl-dev zlib1g-dev wget
+
+      - name: Download kernel source
+        run: |
+          wget https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/6.16.8-rpmbuild-v1/linux-zen-6.16.8.tar.gz -O $HOME/rpmbuild/SOURCES/linux-zen-6.16.8.tar.gz
 
       - name: Prepare rpmbuild directory
         run: |
           mkdir -p $HOME/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
           cp SPECS/kernel-zen.spec $HOME/rpmbuild/SPECS/
-          cp SOURCES/linux-zen-*.tar.gz $HOME/rpmbuild/SOURCES/
-
-      - name: Check SOURCES directory
-        run: ls -lh $HOME/rpmbuild/SOURCES/
+          cp SOURCES/linux-zen-6.16.8.tar.gz $HOME/rpmbuild/SOURCES/
 
       - name: Build RPM packages
         run: |
