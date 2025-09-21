@@ -15,7 +15,7 @@ Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance impr
 
 %build
 make olddefconfig
-make -j$(nproc)
+make -j2
 
 %install
 rm -rf %{buildroot}
