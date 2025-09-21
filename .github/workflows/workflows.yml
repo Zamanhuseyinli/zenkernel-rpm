@@ -26,6 +26,9 @@ jobs:
         run: |
           mkdir -p $HOME/rpmbuild/{BUILD,BUILDROOT,RPMS,SPECS,SRPMS,SOURCES}
           cp SPECS/kernel-zen.spec $HOME/rpmbuild/SPECS/
+          wget https://github.com/Zamanhuseyinli/zenkernel-rpm/releases/download/${{ github.event.inputs.tag }}/linux-zen-6.16.8.tar.gz \
+          -O $HOME/rpmbuild/SOURCES/linux-zen-6.16.8.tar.gz
+
 
       - name: Build RPM packages
         run: |
