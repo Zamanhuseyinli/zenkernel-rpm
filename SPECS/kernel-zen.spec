@@ -14,12 +14,12 @@ Zen Linux Kernel with low-latency, MUQSS scheduler, and desktop performance impr
 %setup -q -n linux-zen-%{version}
 
 %build
-cd %{_builddir}/kernel-zen-%{version}
+cd %{_builddir}/linux-zen-%{version}
 make olddefconfig
 make -j$(nproc)
 
 %install
-cd %{_builddir}/kernel-zen-%{version}
+cd %{_builddir}/linux-zen-%{version}
 rm -rf %{buildroot}
 make INSTALL_MOD_PATH=%{buildroot} modules_install
 make INSTALL_MOD_PATH=%{buildroot} install
