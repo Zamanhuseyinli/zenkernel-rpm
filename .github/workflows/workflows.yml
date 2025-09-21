@@ -24,8 +24,9 @@ jobs:
           libelf-dev libssl-dev zlib1g-dev \
           wget curl git \
           libncurses-dev libudev-dev libpci-dev libiberty-dev autoconf \
-          xz-utils cpio perl python3 dracut
-
+          xz-utils cpio perl python3 dracut \
+          gettext graphviz imagemagick \
+          linux-headers-$(uname -r)
       - name: Prepare rpmbuild directory
         run: |
           mkdir -p $HOME/rpmbuild/{BUILD,BUILDROOT,RPMS,SPECS,SRPMS,SOURCES}
